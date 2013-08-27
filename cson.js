@@ -3,7 +3,7 @@ if (typeof CSON !== 'object')
 (function () {
     CSON.toJSON = toJSON;
     function isName(char) {
-        return !/\s|,|:|=|"|'|\[|\{|\]|\}/.test(char);
+        return !/\s|,|:|=|"|'|\[|\{|\]|\}|#/.test(char);
     }
     function isWS(char) {
         return /\s/.test(char);
