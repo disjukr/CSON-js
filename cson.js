@@ -19,13 +19,12 @@ if (typeof CSON !== 'object')
     }
     function stringToLiteral(string) {
         string = string.replace(/\\/g, '\\\\');
-        string = string.replace(/\b/g, '\\b');
+        string = string.replace(/[\b]/g, '\\b');
         string = string.replace(/\f/g, '\\f');
         string = string.replace(/\n/g, '\\n');
         string = string.replace(/\r/g, '\\r');
         string = string.replace(/\t/g, '\\t');
         string = string.replace(/\v/g, '\\v');
-        string = string.replace(/\'/g, '\\\'');
         string = string.replace(/\"/g, '\\\"');
         return string;
     }
