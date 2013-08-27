@@ -18,15 +18,15 @@ if (typeof CSON !== 'object')
         return prevChar !== '\\' && (char === '\"' || char === '\'');
     }
     function stringToLiteral(string) {
-        string = string.replace('\\', '\\\\');
-        string = string.replace('\b', '\\b');
-        string = string.replace('\f', '\\f');
-        string = string.replace('\n', '\\n');
-        string = string.replace('\r', '\\r');
-        string = string.replace('\t', '\\t');
-        string = string.replace('\v', '\\v');
-        string = string.replace('\'', '\\\'');
-        string = string.replace('\"', '\\\"');
+        string = string.replace(/\\/g, '\\\\');
+        string = string.replace(/\b/g, '\\b');
+        string = string.replace(/\f/g, '\\f');
+        string = string.replace(/\n/g, '\\n');
+        string = string.replace(/\r/g, '\\r');
+        string = string.replace(/\t/g, '\\t');
+        string = string.replace(/\v/g, '\\v');
+        string = string.replace(/\'/g, '\\\'');
+        string = string.replace(/\"/g, '\\\"');
         return string;
     }
     function tokenize(text) {
