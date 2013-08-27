@@ -131,19 +131,46 @@ if (typeof CSON !== 'object')
         }
         return tokens;
     }
-    function toJSON(text) {
+    function toJSON(text, indent) {
         var tokens = tokenize(String(text));
+        var indentLevel = 0;
+        function newline() {
+            var indentCount = Math.max(indent * indentLevel + 1, 0);
+            return '\n' + Array(indentCount).join(' ');
+        }
         if (!/\[|\{/.test(tokens[0])) {
             tokens.unshift('{');
             tokens.push('}');
         }
         for (var i = 0; i < tokens.length; ++i) {
-            if (isName(tokens[i].charAt()) && tokens[i + 1] === ':')
+            var token = tokens[i];
+            var nextToken = tokens[i + 1];
+            if (indent) {
+                if (token === ':') tokens[i] += ' ';
+                if (/\[|\{/.test(token.charAt())) ++indentLevel;
+                if (/\]|\}/.test(token.charAt())) --indentLevel;
+            }
+            if (isName(token.charAt()) && tokens[i + 1] === ':')
                 tokens[i] = '\"' + tokens[i] + '\"';
             if (!/\[|\{|:/.test(tokens[i].charAt()) &&
-                typeof tokens[i + 1] !== 'undefined' &&
-                !/\]|\}|:/.test(tokens[i + 1].charAt()))
-                tokens[i] = tokens[i] + ',';
+                typeof nextToken !== 'undefined' &&
+                !/\]|\}|:/.test(nextToken.charAt())) {
+                tokens[i] += ',';
+                if (indent) tokens[i] += newline();
+            }
+        }
+        if (indent) {
+            for (i = 0; i < tokens.length; ++i) {
+                var token = tokens[i];
+                if (/\[|\{/.test(token.charAt())) {
+                    ++indentLevel;
+                    tokens[i] += newline();
+                }
+                if (/\]|\}/.test(token.charAt())) {
+                    --indentLevel;
+                    tokens[i] = newline() + token;
+                }
+            }
         }
         return tokens.join('');
     }
