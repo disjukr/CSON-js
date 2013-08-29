@@ -17,6 +17,12 @@ if (typeof CSON !== 'object')
     function isEndOfString(prevChar, char) {
         return prevChar !== '\\' && (char === '\"' || char === '\'');
     }
+    function isBeginOfBracket(char) {
+        return /\[|\{/.test(char);
+    }
+    function isEndOfBracket(char) {
+        return /\]|\}/.test(char);
+    }
     function stringToLiteral(string) {
         string = string.replace(/\\/g, '\\\\');
         string = string.replace(/[\b]/g, '\\b');
@@ -146,8 +152,8 @@ if (typeof CSON !== 'object')
             var nextToken = tokens[i + 1];
             if (indent) {
                 if (token === ':') tokens[i] += ' ';
-                if (/\[|\{/.test(token.charAt())) ++indentLevel;
-                if (/\]|\}/.test(token.charAt())) --indentLevel;
+                if (isBeginOfBracket(token.charAt())) ++indentLevel;
+                if (isEndOfBracket(token.charAt())) --indentLevel;
             }
             if (isName(token.charAt()) && tokens[i + 1] === ':')
                 tokens[i] = '\"' + tokens[i] + '\"';
@@ -161,13 +167,17 @@ if (typeof CSON !== 'object')
         if (indent) {
             for (i = 0; i < tokens.length; ++i) {
                 var token = tokens[i];
-                if (/\[|\{/.test(token.charAt())) {
+                var prevToken = tokens[i - 1];
+                var nextToken = tokens[i + 1];
+                if (isBeginOfBracket(token.charAt())) {
                     ++indentLevel;
-                    tokens[i] += newline();
+                    if (nextToken && !isEndOfBracket(nextToken.charAt()))
+                        tokens[i] += newline();
                 }
-                if (/\]|\}/.test(token.charAt())) {
+                if (isEndOfBracket(token.charAt())) {
                     --indentLevel;
-                    tokens[i] = newline() + token;
+                    if (prevToken && !isBeginOfBracket(prevToken.charAt()))
+                        tokens[i] = newline() + token;
                 }
             }
         }
