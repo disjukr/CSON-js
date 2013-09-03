@@ -14,8 +14,11 @@ if (typeof CSON !== 'object')
     function isNameSeparator(char) {
         return char === ':' || char === '=';
     }
-    function isEndOfString(prevChar, char) {
-        return prevChar !== '\\' && (char === '\"' || char === '\'');
+    function isEndOfDQuote(prevChar, char) {
+        return prevChar !== '\\' && char === '\"';
+    }
+    function isEndOfSQuote(prevChar, char) {
+        return prevChar !== '\\' && char === '\'';
     }
     function isBeginOfBracket(char) {
         return /\[|\{/.test(char);
@@ -38,6 +41,8 @@ if (typeof CSON !== 'object')
         var tokens = [];
         var prevChar, currentChar, nextChar;
         var buffer;
+        var isSQuote;
+        var escapeCount;
         var verbatimBuffer;
         var verbatimExit;
         for (var i = 0; i < text.length; ++i) {
@@ -53,11 +58,20 @@ if (typeof CSON !== 'object')
             else if (isNameSeparator(currentChar)) tokens.push(':');
             else if (currentChar === '\"' || currentChar === '\'') {
                 buffer = '';
+                isSQuote = currentChar === '\'';
+                escapeCount = 0;
                 currentChar = text.charAt(++i);
                 prevChar = text.charAt(i - 1);
-                while (!isEndOfString(prevChar, currentChar) &&
+                while (!(isSQuote?
+                         isEndOfSQuote(prevChar, currentChar) :
+                         isEndOfDQuote(prevChar, currentChar)) &&
                        i < text.length) {
+                    if (isSQuote &&
+                        currentChar === '\"' &&
+                        (escapeCount % 2) === 0)
+                        buffer += '\\';
                     buffer += currentChar;
+                    escapeCount = (currentChar === '\\')? escapeCount + 1 : 0;
                     currentChar = text.charAt(++i);
                     prevChar = text.charAt(i - 1);
                 }
