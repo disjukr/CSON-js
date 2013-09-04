@@ -2,6 +2,7 @@ if (typeof CSON !== 'object')
     var CSON = {};
 (function () {
     CSON.toJSON = toJSON;
+    CSON.parse = parse;
     function isName(char) {
         return !/\s|,|:|=|"|'|\[|\{|\]|\}|#/.test(char);
     }
@@ -196,5 +197,8 @@ if (typeof CSON !== 'object')
             }
         }
         return tokens.join('');
+    }
+    function parse(csonString) {
+        return JSON.parse(toJSON(csonString));
     }
 })();

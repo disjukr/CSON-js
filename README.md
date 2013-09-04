@@ -15,7 +15,52 @@ Usage
 -----
 
 ```javascript
-CSON.toJSON('"a": 1, b = 2'); // returns {"a":1,"b":2} as string
+CSON.toJSON('"a": 1, b = 2');
+// returns {"a":1,"b":2} as string
+
+CSON.parse('c: |verbatim\n|string!\n "d" = ["newline"\n"to"\n"separate"]');
+// returns {"c": "verbatim\nstring!", "d": ["newline", "to", "separate"]} as object
+```
+
+you can make formatted json output from cson:
+
+```javascript
+CSON.toJSON('e = {}, f = [1, 2, 3]', 4/* indent by four spaces */);
+```
+
+that returns
+
+```json
+{
+    "e": {},
+    "f": [
+        1,
+        2,
+        3
+    ]
+}
+```
+
+`CSON.toJSON` returns minified json if you putting `0`(or any kind of false value) to `indent` parameter.
+this is default.
+
+if you want formatted json without indentation, use `'0'` instead of `0`:
+
+```javascript
+CSON.toJSON('e = {}, f = [1, 2, 3]', '0');
+```
+
+returns
+
+```json
+{
+"e": {},
+"f": [
+1,
+2,
+3
+]
+}
 ```
 
 
