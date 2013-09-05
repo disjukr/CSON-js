@@ -22,7 +22,7 @@ CSON.parse('c: |verbatim\n|string!\n "d" = ["newline"\n"to"\n"separate"]');
 // returns {"c": "verbatim\nstring!", "d": ["newline", "to", "separate"]} as object
 ```
 
-you can make formatted json output from cson:
+You can make formatted json output from cson:
 
 ```javascript
 CSON.toJSON('e = {}, f = [1, 2, 3]', 4/* indent by four spaces */);
@@ -41,16 +41,16 @@ that returns
 }
 ```
 
-`CSON.toJSON` returns minified json if you putting `0`(or any kind of false value) to `indent` parameter.
-this is default.
+`CSON.toJSON(text, indent)` returns minified json if you putting `0`(or any kind of false value) to `indent` parameter.
+This behavior is default.
 
-if you want formatted json without indentation, use `'0'` instead of `0`:
+If you want formatted json without indentation, use `'0'` instead of `0`:
 
 ```javascript
 CSON.toJSON('e = {}, f = [1, 2, 3]', '0');
 ```
 
-returns
+then
 
 ```json
 {
