@@ -1,5 +1,5 @@
 CSON-js
--------
+=======
 __CSON__(Cursive Script Object Notation)
 is a superset of [JSON](http://json.org/)
 that can be written by hand and translated to a canonical JSON.
@@ -8,13 +8,24 @@ that can be written by hand and translated to a canonical JSON.
 designed by [Kang Seonghoon](https://github.com/lifthrasiir),
 and CSON-js is written by [JongChan Choi](https://github.com/disjukr).
 
-Please check out the [demo](http://0xabcdef.com/CSON-js/)
+___Please check out the [demo](http://0xabcdef.com/CSON-js/)___
+
+[![cursive](https://badge.fury.io/js/cursive.png)](https://npmjs.org/package/cursive)
 
 
 Usage
 -----
 
+Install [cursive](https://npmjs.org/package/cursive) module for [node](http://nodejs.org/):
+```sh
+npm install cursive
+```
+
+Basic example:
 ```javascript
+if (typeof module !== 'undefined')
+    var CSON = require('cursive');
+
 CSON.toJSON('"a": 1, b = 2');
 // returns {"a":1,"b":2} as string
 
@@ -41,7 +52,8 @@ that returns
 }
 ```
 
-`CSON.toJSON(text, indent)` returns minified json if you putting `0`(or any kind of false value) to `indent` parameter.
+`CSON.toJSON(text, indent)` returns minified json
+if you putting `0`(or any kind of false value) to `indent` parameter.
 This behavior is default.
 
 If you want formatted json without indentation, use `'0'` instead of `0`:

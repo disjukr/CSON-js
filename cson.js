@@ -1,5 +1,7 @@
 if (typeof CSON !== 'object')
     var CSON = {};
+if (typeof module !== 'undefined')
+    module.exports = CSON;
 (function () {
     CSON.toJSON = toJSON;
     CSON.parse = parse;

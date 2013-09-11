@@ -1,0 +1,16 @@
+{
+  "name": "cursive",
+  "version": "0.1.0",
+  "description": "The implementation of Cursive Script Object Notation",
+  "keywords": [
+    "cson",
+    "cursive"
+  ],
+  "license": "MIT",
+  "author": "JongChan Choi <disjukr@naver.com>",
+  "main": "./cson",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/disjukr/CSON-js.git"
+  }
+}
