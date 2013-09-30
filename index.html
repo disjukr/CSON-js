@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CSON</title>
+  </head>
+  <body>
+    <h1>CSON</h1>
+    <a href="https://github.com/disjukr/CSON-js">
+      <img style="position: absolute; top: 0; right: 0; border: 0;"
+           src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+           alt="Fork me on GitHub">
+    </a>
+    <p>
+      Cursive Script Object Notation:
+      <a href="http://noe.mearie.org/cson/" target="_blank">
+        http://noe.mearie.org/cson/
+      </a>
+    </p>
+    <div style="display: inline-block;">
+      <h2>CSON</h2>
+      <textarea autofocus="true" id="input" rows="25" cols="70">
+# CSON example
+pi: 3.141592
+e = 2.718281828, 'foo': 'bar'
+"nested" = ["JSON array",
+            {and = "JSON object"},
+            "with a trailing comma", # yes!
+            # yes, the comment can be inside JSON arrays/objects as well
+           ]
+"verbatim": |a verbatim string
+            |  keeps the preceding whitespace
+            |    and joins all lines with `\n`
+            |      as you see, no escape sequence is processed
+            |        and this string does not have a trailing \n -->
+i18n: {
+  한국어: "Korean"
+  日本語: "Japanese"
+  汉语-or-漢語: "Chinese"
+  ᏣᎳᎩ: "Cherokee"
+}</textarea>
+    </div>
+    <div style="display: inline-block;">
+      <h2 style="display: inline-block;">JSON</h2>
+      <span>minify: </span>
+      <input id="minify" type="checkbox">
+      <span>indent: </span>
+      <input id="indent" type="number" value="2" min="0">
+      <br>
+      <textarea id="output" rows="25" cols="70"></textarea>
+    </div>
+    <script src="./CSON-js/cson.js"></script>
+    <script>
+    var input = document.getElementById('input');
+    var output = document.getElementById('output');
+    var minify = document.getElementById('minify');
+    var indent = document.getElementById('indent');
+    input.oninput = minify.onchange = indent.onchange = function () {
+      output.textContent = CSON.toJSON(input.value,
+        !minify.checked && indent.value);
+    };
+    input.oninput();
+    </script>
+  </body>
+</html>
