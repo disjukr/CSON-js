@@ -10,7 +10,8 @@ and CSON-js is written by [JongChan Choi](https://github.com/disjukr).
 
 ___Please check out the [demo](http://0xabcdef.com/CSON-js/)___
 
-[![cursive](https://badge.fury.io/js/cursive.png)](https://npmjs.org/package/cursive)
+[![npm](https://badge.fury.io/js/cursive.png)](https://npmjs.org/package/cursive)
+[![travis](https://travis-ci.org/disjukr/CSON-js.png)](https://travis-ci.org/disjukr/CSON-js)
 
 
 Usage
