@@ -6,6 +6,9 @@
     "cson",
     "cursive"
   ],
+  "scripts": {
+    "test": "node ./test.js"
+  },
   "license": "MIT",
   "author": "JongChan Choi <disjukr@naver.com>",
   "main": "./cson",
