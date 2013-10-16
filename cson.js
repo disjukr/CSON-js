@@ -160,7 +160,7 @@ if (typeof module !== 'undefined')
             var indentCount = Math.max(indent * indentLevel + 1, 0);
             return '\n' + Array(indentCount).join(' ');
         }
-        if (!/\[|\{/.test(tokens[0])) {
+        if (!/\[|\{/.test(tokens[0]) && tokens[1] === ':') {
             tokens.unshift('{');
             tokens.push('}');
         }
