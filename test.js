@@ -4,6 +4,7 @@ var util = require('util');
 var CSON = require('./cson');
 
 function type(a) {
+    if (a === null) return 'null';
     if (util.isArray(a)) return 'array';
     if (util.isDate(a)) return 'date';
     if (util.isError(a)) return 'error';
@@ -67,16 +68,42 @@ function compare(a, b) {
 }
 
 function parseTest(input, expected, message) {
-    util.print(message + '...');
-    assert(compare(CSON.parse(input), expected), message);
-    util.print('ok\n');
+    console.log('\x1B[1m' + message.toUpperCase() + ':\x1B[22m');
+    var actual = CSON.parse(input);
+    console.log('expected: ' + util.inspect(expected));
+    console.log('actual: ' + util.inspect(actual));
+    assert(compare(actual, expected), message);
+    console.log('\x1B[1m\x1B[32mPASS\x1B[39m\x1B[22m');
 }
 
-console.log('Primitive types');
-parseTest('{}', {}, 'object');
-parseTest('[]', [], 'array');
+function printSubject(subject) {
+    console.log('\x1B[33m# ' + subject + '\x1B[39m');
+}
+
+
+printSubject('Primitive types');
+
 parseTest('true', true, 'true');
 parseTest('false', false, 'false');
+parseTest('null', null, 'null');
 parseTest('0', 0, 'zero');
 parseTest('1', 1, 'one');
 parseTest('10', 10, 'ten');
+parseTest('-1', -1, 'minus one');
+parseTest('-1.23e45', -1.23e45, 'ieee float');
+
+
+printSubject('String');
+
+parseTest('""', '', 'empty double quote string');
+parseTest("''", '', 'empty single quote string');
+
+
+printSubject('Array');
+
+parseTest('[]', [], 'array');
+parseTest('[0]', [0], 'one length array');
+parseTest('[0, 1]', [0, 1], 'two length array');
+parseTest('[true, null, 0, \'string\']',
+          [true, null, 0, 'string'],
+          'multitype');
