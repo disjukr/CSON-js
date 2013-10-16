@@ -4,7 +4,7 @@ __CSON__(Cursive Script Object Notation)
 is a superset of [JSON](http://json.org/)
 that can be written by hand and translated to a canonical JSON.
 
-[CSON](http://noe.mearie.org/cson/) is
+[CSON](https://github.com/lifthrasiir/cson) is
 designed by [Kang Seonghoon](https://github.com/lifthrasiir),
 and CSON-js is written by [JongChan Choi](https://github.com/disjukr).
 
