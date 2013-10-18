@@ -68,7 +68,9 @@ function compare(a, b) {
 }
 
 function parseTest(input, expected, message) {
-    console.log('\x1B[1m' + message.toUpperCase() + ':\x1B[22m');
+    message = typeof message === 'undefined' ?
+        input : message.toUpperCase() + ':';
+    console.log('\x1B[1m' + message + '\x1B[22m');
     var actual = CSON.parse(input);
     console.log('expected: ' + util.inspect(expected));
     console.log('actual: ' + util.inspect(actual));
@@ -107,3 +109,15 @@ parseTest('[0, 1]', [0, 1], 'two length array');
 parseTest('[true, null, 0, \'string\']',
           [true, null, 0, 'string'],
           'multitype');
+parseTest('[0\n1\n2]', [0, 1, 2], 'newline instead of comma');
+parseTest('[1, 2, 3, ]', [1, 2, 3], 'trailing comma');
+
+
+printSubject('Object');
+
+parseTest('{}', {}, 'object');
+parseTest('{"a": 0}', {a: 0});
+parseTest('{\'b\': true}', {b: true});
+parseTest('{c: null}', {c: null});
+parseTest('d: "string"', {d: 'string'});
+parseTest('e = []', {e: []});
