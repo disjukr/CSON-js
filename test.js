@@ -99,6 +99,8 @@ printSubject('String');
 
 parseTest('""', '', 'empty double quote string');
 parseTest("''", '', 'empty single quote string');
+parseTest('"\'"', "'", 'single quote in double quote string');
+parseTest("'\"'", '"', 'double quote in single quote string');
 
 
 printSubject('Array');
@@ -111,6 +113,9 @@ parseTest('[true, null, 0, \'string\']',
           'multitype');
 parseTest('[0\n1\n2]', [0, 1, 2], 'newline instead of comma');
 parseTest('[1, 2, 3, ]', [1, 2, 3], 'trailing comma');
+parseTest('1, 2', [1, 2]);
+parseTest('3, 4, ', [3, 4]);
+parseTest('true\nfalse', [true, false]);
 
 
 printSubject('Object');
