@@ -160,9 +160,17 @@ if (typeof module !== 'undefined')
             var indentCount = Math.max(indent * indentLevel + 1, 0);
             return '\n' + Array(indentCount).join(' ');
         }
-        if (!/\[|\{/.test(tokens[0]) && tokens[1] === ':') {
-            tokens.unshift('{');
-            tokens.push('}');
+        if (!/\[|\{/.test(tokens[0])) {
+            if (tokens[1] !== undefined) {
+                if (tokens[1] === ':') {
+                    tokens.unshift('{');
+                    tokens.push('}');
+                }
+                else {
+                    tokens.unshift('[');
+                    tokens.push(']');
+                }
+            }
         }
         for (var i = 0; i < tokens.length; ++i) {
             var token = tokens[i];
