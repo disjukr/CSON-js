@@ -36,7 +36,6 @@ if (typeof module !== 'undefined')
         string = string.replace(/\n/g, '\\n');
         string = string.replace(/\r/g, '\\r');
         string = string.replace(/\t/g, '\\t');
-        string = string.replace(/\v/g, '\\v');
         string = string.replace(/\"/g, '\\\"');
         return string;
     }
