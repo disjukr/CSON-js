@@ -29,6 +29,9 @@ if (typeof module !== 'undefined')
     function isEndOfBracket(char) {
         return char === ']' || char === '}';
     }
+    function isBracket(char) {
+        return isBeginOfBracket(char) || isEndOfBracket(char);
+    }
     function stringToLiteral(string) {
         string = string.replace('\\', '\\\\');
         string = string.replace('\b', '\\b');
@@ -51,10 +54,7 @@ if (typeof module !== 'undefined')
             currentChar = text.charAt(i);
             prevChar = text.charAt(i - 1);
             nextChar = text.charAt(i + 1);
-            if (currentChar === '[') tokens.push('[');
-            else if (currentChar === '{') tokens.push('{');
-            else if (currentChar === ']') tokens.push(']');
-            else if (currentChar === '}') tokens.push('}');
+            if (isBracket(currentChar)) tokens.push(currentChar);
             else if (currentChar === ',' || currentChar === '\n') continue;
             else if (isCRLF(currentChar, nextChar)) ++i;
             else if (isNameSeparator(currentChar)) tokens.push(':');
