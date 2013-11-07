@@ -24,19 +24,19 @@ if (typeof module !== 'undefined')
         return prevChar !== '\\' && char === '\'';
     }
     function isBeginOfBracket(char) {
-        return /\[|\{/.test(char);
+        return char === '[' || char === '{';
     }
     function isEndOfBracket(char) {
-        return /\]|\}/.test(char);
+        return char === ']' || char === '}';
     }
     function stringToLiteral(string) {
-        string = string.replace(/\\/g, '\\\\');
-        string = string.replace(/[\b]/g, '\\b');
-        string = string.replace(/\f/g, '\\f');
-        string = string.replace(/\n/g, '\\n');
-        string = string.replace(/\r/g, '\\r');
-        string = string.replace(/\t/g, '\\t');
-        string = string.replace(/\"/g, '\\\"');
+        string = string.replace('\\', '\\\\');
+        string = string.replace('\b', '\\b');
+        string = string.replace('\f', '\\f');
+        string = string.replace('\n', '\\n');
+        string = string.replace('\r', '\\r');
+        string = string.replace('\t', '\\t');
+        string = string.replace('\"', '\\\"');
         return string;
     }
     function tokenize(text) {
@@ -159,7 +159,7 @@ if (typeof module !== 'undefined')
             var indentCount = Math.max(indent * indentLevel + 1, 0);
             return '\n' + Array(indentCount).join(' ');
         }
-        if (!/\[|\{/.test(tokens[0])) {
+        if (!isBeginOfBracket(tokens[0])) {
             if (tokens[1] !== undefined) {
                 if (tokens[1] === ':') {
                     tokens.unshift('{');
