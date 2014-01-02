@@ -155,9 +155,18 @@ if (typeof module !== 'undefined')
     function toJSON(text, indent) {
         var tokens = tokenize(String(text));
         var indentLevel = 0;
+        if (indent !== '0') {
+            if (!isNaN(parseInt(indent)))
+                indent = Array(parseInt(indent) + 1).join(' ');
+            else if (typeof indent != 'string')
+                indent = indent ? '    ' : false;
+        }
         function newline() {
-            var indentCount = Math.max(indent * indentLevel + 1, 0);
-            return '\n' + Array(indentCount).join(' ');
+            var result = '\n';
+            if (indent === '0') return result;
+            for (var i = 0; i < indentLevel; ++i)
+                result += indent;
+            return result;
         }
         if (!isBeginOfBracket(tokens[0])) {
             if (tokens[1] !== undefined) {

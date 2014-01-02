@@ -8,7 +8,7 @@ that can be written by hand and translated to a canonical JSON.
 designed by [Kang Seonghoon](https://github.com/lifthrasiir),
 and CSON-js is written by [JongChan Choi](https://github.com/disjukr).
 
-___Please check out the [demo](http://0xabcdef.com/CSON-js/)___
+### Please check out the [DEMO](http://0xabcdef.com/CSON-js/)
 
 [![npm](https://badge.fury.io/js/cursive.png)](https://npmjs.org/package/cursive)
 [![travis](https://travis-ci.org/disjukr/CSON-js.png)](https://travis-ci.org/disjukr/CSON-js)
@@ -38,10 +38,9 @@ You can make formatted json output from cson:
 
 ```javascript
 CSON.toJSON('e = {}, f = [1, 2, 3]', 4/* indent by four spaces */);
+// or
+CSON.toJSON('e = {}, f = [1, 2, 3]', '\t'/* indent by tab character */);
 ```
-
-that returns
-
 ```json
 {
     "e": {},
