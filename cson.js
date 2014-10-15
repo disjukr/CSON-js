@@ -33,13 +33,13 @@ if (typeof module !== 'undefined')
         return isBeginOfBracket(char) || isEndOfBracket(char);
     }
     function stringToLiteral(string) {
-        string = string.replace('\\', '\\\\');
-        string = string.replace('\b', '\\b');
-        string = string.replace('\f', '\\f');
-        string = string.replace('\n', '\\n');
-        string = string.replace('\r', '\\r');
-        string = string.replace('\t', '\\t');
-        string = string.replace('\"', '\\\"');
+        string = string.split('\\').join('\\\\');
+        string = string.split('\b').join('\\b');
+        string = string.split('\f').join('\\f');
+        string = string.split('\n').join('\\n');
+        string = string.split('\r').join('\\r');
+        string = string.split('\t').join('\\t');
+        string = string.split('\"').join('\\\"');
         return string;
     }
     function tokenize(text) {
